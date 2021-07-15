@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+    
+    <!-- Spring MVC 컴포넌트들을 디폴트 설정을 통해 활성화한다.
+		 Spring MVC @Controller에 요청을 보내기 위해 필요한 HandlerMapping과 HandlerAdapter를 Bean으로 등록한다.
+		 	HandlerMapping : HTTP 요청정보를 이용해서 컨트롤러를 찾아주는 기능
+		 	HandlerAdapter : HandlerMapping을 통해 찾은 컨트롤러를 직접 실행하는 기능을 수행
+		Bean을 생성하기 위해 xml 파일에 context:component-scan을 명시하면 이 태그를 포함하지 않아도 MVC 어플리케이션을 작동한다. -->
+   <mvc:annotation-driven />
+   
+    <!-- 등록된 bean 뿐 아니라, 위치를 특정하여 scan 을 통해 annotaion 을 해석하고 활성화함
+    @Autowired @Qualifler 이외에  @component, @service @controller 등 모든 클래스를 스캔하고 bean 을 작성 -->
+    <context:component-scan base-package="com"></context:component-scan>
+    
+    <!-- controller 에서 return 된 값(ex: return user/login)에 앞에는 경로 뒤에는 확장자를 붙여줌 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/board/"></property>
+    	<property name="suffix" value=".jsp"></property>
+    </bean>
+    
+    <!-- 정적자원 매핑 -->
+    <mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+    <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
+    <mvc:resources location="/img/" mapping="/img/**"></mvc:resources>
+    <!-- more bean definitions go here -->
+</beans>

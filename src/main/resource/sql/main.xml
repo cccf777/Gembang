@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sql Mapper -->
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+	<!-- 게시판 목록 -->
+	<select id="getBoardCount" resultType="com.web.humor.main.mainVO">
+		select board_id as boardid, board_name as boardname
+  		  from board_master
+ 		 where useFlag ='Y'
+	</select>
+
+	<!-- 게시판 별 글 목록 -->
+	<select id="getMainList" parameterType="Integer" resultType="com.web.humor.content.ContentVO">
+		select low.id,
+			   low.boardid,
+			   (select board_name from board_master where board_id = low.boardid) as boardname,
+		       low.title,
+		       low.writeid,
+		       low.recommend,
+			   tn.board_name as titlename
+		  from(select * 
+				 from tbl_board 
+				where useFlag ='Y' 
+				<if test="boardid eq 0">
+		          and recommend > 50
+		         </if>
+		         <if test="boardid != 0">
+		          and boardid = ${boardid}
+		         </if>
+				 order by regdate desc  limit 10 offset 0)low,
+			   (select board_name, board_titleid, boardid 
+				  from board_subtitle
+				 where useFlag='Y' )tn
+		  where tn.boardid = low.boardid 
+		    and tn.board_titleid=low.titleid
+	</select>
+</mapper>
