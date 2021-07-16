@@ -63,7 +63,7 @@ public class LoginCtr {
 			setCookie("sid", "", resp);
 		}
 		}
-		return "redirect: /Gembang/main";
+		return "redirect: ../main";
 	}
 	
 	//로그아웃
@@ -74,7 +74,7 @@ public class LoginCtr {
 		session.removeAttribute("userName");
 		session.removeAttribute("userRank");
 		
-		return "redirect: /Gembang/main";
+		return "redirect: ../main";
 	}
 	
 	//회원가입
