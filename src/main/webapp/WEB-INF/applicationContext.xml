@@ -20,7 +20,7 @@
 	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close"
 		p:driverClassName="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"		
 		p:url="jdbc:log4jdbc:mysql://3.37.151.149/project"
-		p:username="**********" p:password="*******" p:initialSize="3"
+		p:username="lain" p:password="1111" p:initialSize="3"
 		p:maxIdle="10" p:minIdle="3" p:validationQuery="SELECT 1" />
 
 	<!-- DataSource를 참조하여 MyBatis와 Mysql 서버를 연동시켜준다. -->
